@@ -25,6 +25,7 @@ RUN apk add --no-cache \
     supervisor \
     bash \
     curl \
+    linux-headers \
     icu-dev \
     libzip-dev \
     oniguruma-dev \
