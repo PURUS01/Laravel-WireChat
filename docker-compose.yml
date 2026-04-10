@@ -3,12 +3,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: wirechat-app:latest
     restart: unless-stopped
     expose:
       - "80"
     environment:
       RUN_MIGRATIONS: "true"
+      APP_ENV: ${APP_ENV:-production}
     volumes:
       - storage_data:/var/www/html/storage
 
