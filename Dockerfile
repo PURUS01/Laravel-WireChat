@@ -18,22 +18,24 @@ COPY public ./public
 COPY vite.config.js ./
 RUN npm run build
 
-FROM php:8.3-fpm-alpine
+FROM php:8.3-fpm
 
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
     supervisor \
     bash \
     curl \
-    linux-headers \
-    icu-dev \
+    libicu-dev \
     libzip-dev \
-    oniguruma-dev \
-    freetype-dev \
+    libonig-dev \
+    libfreetype6-dev \
     libpng-dev \
-    libjpeg-turbo-dev && \
+    libjpeg62-turbo-dev \
+    unzip \
+    git && \
+    rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j"$(nproc)" pdo_mysql bcmath intl zip opcache pcntl gd && \
+    docker-php-ext-install -j"$(nproc)" pdo_mysql bcmath pcntl opcache zip gd && \
     pecl install redis && \
     docker-php-ext-enable redis
 
@@ -42,7 +44,7 @@ WORKDIR /var/www/html
 COPY . .
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=assets /app/public/build ./public/build
-COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY docker/supervisord.conf /etc/supervisord.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 
