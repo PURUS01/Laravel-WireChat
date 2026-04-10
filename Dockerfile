@@ -33,7 +33,7 @@ RUN apk add --no-cache \
     libpng-dev \
     libjpeg-turbo-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j"$(nproc)" pdo_mysql bcmath intl zip opcache pcntl sockets gd && \
+    docker-php-ext-install -j"$(nproc)" pdo_mysql bcmath intl zip opcache pcntl gd && \
     pecl install redis && \
     docker-php-ext-enable redis
 
