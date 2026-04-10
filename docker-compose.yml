@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile
     image: wirechat-app:latest
     restart: unless-stopped
-    ports:
-      - "80:80"
+    expose:
+      - "80"
     environment:
       RUN_MIGRATIONS: "true"
     volumes:
