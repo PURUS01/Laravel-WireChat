@@ -16,6 +16,8 @@ RUN npm install
 COPY resources ./resources
 COPY public ./public
 COPY vite.config.js ./
+COPY --from=vendor /app/vendor ./vendor
+RUN mkdir -p storage/framework/views
 RUN npm run build
 
 FROM php:8.3-fpm
@@ -46,6 +48,7 @@ WORKDIR /var/www/html
 COPY . .
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=assets /app/public/build ./public/build
+RUN npm install --include=dev
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 COPY docker/supervisord.conf /etc/supervisord.conf
