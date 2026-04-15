@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - {{ config('app.name', 'Wirechat') }}</title>
+    <title>Register - {{ config('app.name', 'Wirechat') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-100">
@@ -16,21 +16,21 @@
             <section class="grid w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur md:grid-cols-2">
                 <div class="hidden md:flex flex-col justify-between border-r border-white/10 bg-gradient-to-b from-indigo-600/30 to-cyan-600/10 p-10">
                     <div>
-                        <p class="text-xs font-semibold tracking-[0.2em] text-indigo-200/90">WELCOME</p>
+                        <p class="text-xs font-semibold tracking-[0.2em] text-indigo-200/90">JOIN</p>
                         <h1 class="mt-3 text-3xl font-semibold leading-tight">
                             {{ config('app.name', 'Wirechat') }}
                         </h1>
                         <p class="mt-4 text-sm text-slate-300">
-                            Continue to your conversations, manage groups, and chat in real time.
+                            Create your account and start chatting in real time.
                         </p>
                     </div>
-                    <p class="text-xs text-slate-300/80">Secure login powered by Laravel Auth</p>
+                    <p class="text-xs text-slate-300/80">Account registration</p>
                 </div>
 
                 <div class="p-6 sm:p-10">
                     <div class="mx-auto w-full max-w-md">
-                        <h2 class="text-2xl font-semibold text-white">Sign in to your account</h2>
-                        <p class="mt-2 text-sm text-slate-300">Use your email and password to access chats.</p>
+                        <h2 class="text-2xl font-semibold text-white">Create your account</h2>
+                        <p class="mt-2 text-sm text-slate-300">Enter your details to register.</p>
 
                         @if ($errors->any())
                             <div class="mt-5 rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
@@ -38,8 +38,22 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('login') }}" class="mt-6 space-y-5">
+                        <form method="POST" action="{{ route('register') }}" class="mt-6 space-y-5">
                             @csrf
+
+                            <div>
+                                <label for="name" class="mb-2 block text-sm font-medium text-slate-200">Name</label>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    name="name"
+                                    value="{{ old('name') }}"
+                                    required
+                                    autofocus
+                                    class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                                    placeholder="Your name"
+                                >
+                            </div>
 
                             <div>
                                 <label for="email" class="mb-2 block text-sm font-medium text-slate-200">Email</label>
@@ -49,9 +63,8 @@
                                     name="email"
                                     value="{{ old('email') }}"
                                     required
-                                    autofocus
                                     class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                                    placeholder="admin@example.com"
+                                    placeholder="you@example.com"
                                 >
                             </div>
 
@@ -63,26 +76,33 @@
                                     name="password"
                                     required
                                     class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
-                                    placeholder="Enter your password"
+                                    placeholder="Minimum 8 characters"
                                 >
                             </div>
 
-                            <label class="flex items-center gap-2 text-sm text-slate-300">
-                                <input type="checkbox" name="remember" class="rounded border-white/20 bg-transparent text-indigo-500 focus:ring-indigo-400">
-                                Remember me
-                            </label>
+                            <div>
+                                <label for="password_confirmation" class="mb-2 block text-sm font-medium text-slate-200">Confirm Password</label>
+                                <input
+                                    id="password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    required
+                                    class="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
+                                    placeholder="Repeat password"
+                                >
+                            </div>
 
                             <button
                                 type="submit"
                                 class="w-full rounded-xl bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/70"
                             >
-                                Login
+                                Register
                             </button>
                         </form>
 
                         <p class="mt-4 text-sm text-slate-300">
-                            Need an account?
-                            <a href="{{ route('register') }}" class="font-medium text-indigo-300 hover:text-indigo-200">Register</a>
+                            Already have an account?
+                            <a href="{{ route('login') }}" class="font-medium text-indigo-300 hover:text-indigo-200">Sign in</a>
                         </p>
                     </div>
                 </div>

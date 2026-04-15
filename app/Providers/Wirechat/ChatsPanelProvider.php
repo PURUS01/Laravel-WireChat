@@ -14,7 +14,10 @@ class ChatsPanelProvider extends PanelProvider
             ->path('chats')
             ->heading('Wirechat')
             ->layout('layouts.wirechat')
-            ->middleware(['web', 'auth'])
+            ->createChatAction()
+            ->chatsSearch()
+            ->searchableAttributes(['name', 'email'])
+            ->middleware(['web', 'auth', 'wirechat.general'])
             ->default();
     }
 }
