@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     supervisor \
     bash \
     curl \
+    nodejs \
+    npm \
     libicu-dev \
     libzip-dev \
     libonig-dev \
